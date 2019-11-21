@@ -7,6 +7,7 @@ import lightgbm as lgb
 from sklearn.model_selection import train_test_split
 
 %matplotlib inline
+#load data
 data_path=''
 train = pd.read_csv(data_path + 'train.csv', dtype={'msno' : 'category',
                                                 'source_system_tab' : 'category',
@@ -30,6 +31,8 @@ members = pd.read_csv(data_path + 'members.csv',dtype={'city' : 'category',
                                                       'gender' : 'category',
                                                       'registered_via' : 'category'},
                      parse_dates=['registration_init_time','expiration_date'])
+
+#song session
 songs_extra = pd.read_csv(data_path + 'song_extra_info.csv')
 print('Done loading...')
 
@@ -47,6 +50,7 @@ members['expiration_month'] = members['expiration_date'].dt.month
 members['expiration_date'] = members['expiration_date'].dt.day
 members = members.drop(['registration_init_time'], axis=1)
 
+#isrc to year
 def isrc_to_year(isrc):
     if type(isrc) == str:
         if int(isrc[5:7]) > 17:
@@ -61,6 +65,8 @@ songs_extra.drop(['isrc', 'name'], axis = 1, inplace = True)
 
 train = train.merge(members, on='msno', how='left')
 test = test.merge(members, on='msno', how='left')
+
+#merge
 
 train = train.merge(songs_extra, on = 'song_id', how = 'left')
 train.song_length.fillna(200000,inplace=True)
@@ -118,10 +124,10 @@ def is_featured(x):
     return 0
 
 train['artist_name'] = train['artist_name'].cat.add_categories(['no_artist'])
-train['artist_name'].fillna('no_artist',inplace=True)
+train['artist_name'].fillna('no_artist',inplace=True) #fill na no artist
 train['is_featured'] = train['artist_name'].apply(is_featured).astype(np.int8)
 test['artist_name'] = test['artist_name'].cat.add_categories(['no_artist'])
-test['artist_name'].fillna('no_artist',inplace=True)
+test['artist_name'].fillna('no_artist',inplace=True) #fill na no artist
 test['is_featured'] = test['artist_name'].apply(is_featured).astype(np.int8)
 
 def artist_count(x):
@@ -152,9 +158,11 @@ def song_lang_boolean(x):
         return 1
     return 0
 
+#I add the fill nan 
+train['language']=train['language'].cat.add_categories('nan').fillna('nan')
 train['song_lang_boolean'] = train['language'].apply(song_lang_boolean).astype(np.int8)
+test['language']=test['language'].cat.add_categories('nan').fillna('nan')
 test['song_lang_boolean'] = test['language'].apply(song_lang_boolean).astype(np.int8)
-
 
 _mean_song_length = np.mean(train['song_length'])
 def smaller_song(x):
@@ -195,3 +203,18 @@ def count_artist_played(x):
 
 train['count_artist_played'] = train['artist_name'].apply(count_artist_played).astype(np.int64)
 test['count_artist_played'] = test['artist_name'].apply(count_artist_played).astype(np.int64)
+
+
+#I add fill nan
+train['source_system_tab']=train['source_system_tab'].cat.add_categories('nan').fillna('nan')
+test['source_system_tab']=test['source_system_tab'].cat.add_categories('nan').fillna('nan')
+train['source_screen_name']=train['source_screen_name'].cat.add_categories('nan').fillna('nan')
+test['source_screen_name']=test['source_screen_name'].cat.add_categories('nan').fillna('nan')
+train['source_type']=train['source_type'].cat.add_categories('nan').fillna('nan')
+test['source_type']=test['source_type'].cat.add_categories('nan').fillna('nan')
+train['gender']=train['gender'].cat.add_categories('nan').fillna('nan')
+test['gender']=test['gender'].cat.add_categories('nan').fillna('nan')
+train['song_year']=train['song_year'].fillna(0)
+test['song_year']=test['song_year'].fillna(0)
+train['genre_ids']=train['genre_ids'].cat.add_categories('nan').fillna('nan')
+test['genre_ids']=test['genre_ids'].cat.add_categories('nan').fillna('nan')
