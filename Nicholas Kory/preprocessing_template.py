@@ -1,14 +1,14 @@
 import pandas as pd
 import numpy as np
 import sys
-import pandas as pd
-import numpy as np
-import lightgbm as lgb
-from sklearn.model_selection import train_test_split
+# import pandas as pd
+# import numpy as np
+# import lightgbm as lgb
+# from sklearn.model_selection import train_test_split
 
-%matplotlib inline
+#matplotlib inline
 #load data
-data_path=''
+data_path = "C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\"
 train = pd.read_csv(data_path + 'train.csv', dtype={'msno' : 'category',
                                                 'source_system_tab' : 'category',
                                                   'source_screen_name' : 'category',
@@ -59,7 +59,7 @@ def isrc_to_year(isrc):
             return 2000 + int(isrc[5:7])
     else:
         return np.nan
-        
+
 songs_extra['song_year'] = songs_extra['isrc'].apply(isrc_to_year)
 songs_extra.drop(['isrc', 'name'], axis = 1, inplace = True)
 
@@ -145,20 +145,20 @@ test['artist_composer'] = (np.asarray(test['artist_name']) == np.asarray(test['c
 
 
 # if artist, lyricist and composer are all three same
-train['artist_composer_lyricist'] = ((np.asarray(train['artist_name']) == np.asarray(train['composer'])) & 
-                                     np.asarray((train['artist_name']) == np.asarray(train['lyricist'])) & 
+train['artist_composer_lyricist'] = ((np.asarray(train['artist_name']) == np.asarray(train['composer'])) &
+                                     np.asarray((train['artist_name']) == np.asarray(train['lyricist'])) &
                                      np.asarray((train['composer']) == np.asarray(train['lyricist']))).astype(np.int8)
-test['artist_composer_lyricist'] = ((np.asarray(test['artist_name']) == np.asarray(test['composer'])) & 
+test['artist_composer_lyricist'] = ((np.asarray(test['artist_name']) == np.asarray(test['composer'])) &
                                     (np.asarray(test['artist_name']) == np.asarray(test['lyricist'])) &
                                     np.asarray((test['composer']) == np.asarray(test['lyricist']))).astype(np.int8)
 
-# is song language 17 or 45. 
+# is song language 17 or 45.
 def song_lang_boolean(x):
     if '17.0' in str(x) or '45.0' in str(x):
         return 1
     return 0
 
-#I add the fill nan 
+#I add the fill nan
 train['language']=train['language'].cat.add_categories('nan').fillna('nan')
 train['song_lang_boolean'] = train['language'].apply(song_lang_boolean).astype(np.int8)
 test['language']=test['language'].cat.add_categories('nan').fillna('nan')
@@ -184,7 +184,7 @@ def count_song_played(x):
             return _dict_count_song_played_test[x]
         except KeyError:
             return 0
-    
+
 
 train['count_song_played'] = train['song_id'].apply(count_song_played).astype(np.int64)
 test['count_song_played'] = test['song_id'].apply(count_song_played).astype(np.int64)
