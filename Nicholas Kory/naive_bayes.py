@@ -1,10 +1,6 @@
 import numpy as np
 import pandas as pd
 
-features = np.loadtxt('C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\sampling_train_preprocessed.csv', delimiter=',')
-classes = np.loadtxt('C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\sampling_train_preprocessed_classes.csv', delimiter=',')
-test = np.loadtxt('C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\sampling_test_preprocessed.csv', delimiter=',')
-ids = np.loadtxt('C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\sampling_test_preprocessed_ids.csv', delimiter=',')
 
 def train(features, classes):
     feature_max = features.max().max()
@@ -58,7 +54,17 @@ def predict(test,model):
     return prediction
 
 
+features = np.loadtxt('C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\sampling_train_preprocessed.csv', delimiter=',')
+classes = np.loadtxt('C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\sampling_train_preprocessed_classes.csv', delimiter=',')
+test = np.loadtxt('C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\sampling_test_preprocessed.csv', delimiter=',')
+ids = np.loadtxt('C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\sampling_test_preprocessed_ids.csv', delimiter=',')
+
 model = train(features, classes)
 prediction = predict(test,model)
+submission = np.column_stack((ids,prediction))
 
+print(ids)
 print(prediction)
+print(submission)
+
+pd.DataFrame(submission).to_csv('C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\nb_submission.csv', header=['id','target'], index=False)
