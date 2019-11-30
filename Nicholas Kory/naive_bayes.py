@@ -1,8 +1,5 @@
-import pandas as pd
 import numpy as np
 
-# data = pd.read_csv('C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\sampling_train.csv')
-# data = pd.read_csv('sampling_train.csv')
 
 features = np.loadtxt('C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\sampling_train_preprocessed.csv', delimiter=',')
 classes = np.loadtxt('C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\sampling_train_preprocessed_classes.csv', delimiter=',')
