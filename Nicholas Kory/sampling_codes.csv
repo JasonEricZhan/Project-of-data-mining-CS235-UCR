@@ -1,0 +1,14 @@
+discover,0,,Album more,0,,album,0,,nan,0
+explore,1,,Artist more,1,,local-library,1,,male,1
+my library,2,,Discover Chart,2,,local-playlist,2,,female,2
+radio,3,,Discover Feature,3,,online-playlist,3,,,
+search,4,,Discover Genre,4,,radio,4,,,
+,,,Explore,5,,song,5,,,
+,,,Local playlist more,6,,song-based-playlist,6,,,
+,,,My library,7,,top-hits-for-artist,7,,,
+,,,nan,8,,,,,,
+,,,Online playlist more,9,,,,,,
+,,,Radio,10,,,,,,
+,,,Search,11,,,,,,
+,,,Search Home,12,,,,,,
+,,,Unknown,13,,,,,,
