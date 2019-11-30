@@ -4,11 +4,15 @@ import numpy as np
 # data = pd.read_csv('C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\sampling_train.csv')
 # data = pd.read_csv('sampling_train.csv')
 
+features = np.loadtxt('C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\sampling_train_preprocessed.csv', delimiter=',')
+classes = np.loadtxt('C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\sampling_train_preprocessed_classes.csv', delimiter=',')
+test = np.loadtxt('C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\sampling_test_preprocessed.csv', delimiter=',')
+
 def train(features, classes):
     feature_max = features.max().max()
 
     prior_prob = np.array([len(classes[classes==0]) / len(classes), len(classes[classes==1]) / len(classes)])
-    cond_prob = np.zeros((len(features[0]),int(maxfeatval + 1),2))
+    cond_prob = np.zeros((len(features[0]),int(feature_max + 1),2))
 
     # for each feature, loop through the data points and add counts to cond_prob
     for j in range(int(len(features[0]))):
@@ -19,7 +23,7 @@ def train(features, classes):
     cond_prob += 1
 
     # find ^p(x | y)
-    for feature in range(len(test[0])):
+    for feature in range(len(features[0])):
         cond_prob[feature,:,] /= (cond_prob.sum(axis=1)[feature,:,])
 
     # model is complete
@@ -54,3 +58,7 @@ def predict(test,model):
 
     # predictions of test are complete
     return prediction
+
+
+model = train(features, classes)
+predict(test,model)
