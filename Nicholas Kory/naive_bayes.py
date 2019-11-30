@@ -63,8 +63,6 @@ model = train(features, classes)
 prediction = predict(test,model)
 submission = np.column_stack((ids,prediction))
 
-print(ids)
-print(prediction)
 print(submission)
 
 pd.DataFrame(submission).to_csv('C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\nb_submission.csv', header=['id','target'], index=False)
