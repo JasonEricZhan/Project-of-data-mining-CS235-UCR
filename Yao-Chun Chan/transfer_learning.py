@@ -95,4 +95,6 @@ model_history=DAW.train_multi_channel(pre_train,[song_cat,song_num],[member_cat,
 ans=DAW.predict_multi_channel(pre_test,[song_cat,song_num],[member_cat,member_num],
                     [source_cat],user_input_vec[len(y):],b)
 
-np.save("pred.npy",ans)
+id_=pd.read_csv('sample_submission.csv')
+id_['target']=ans
+id_[['id','target']].to_csv('sub.csv',index=False)
