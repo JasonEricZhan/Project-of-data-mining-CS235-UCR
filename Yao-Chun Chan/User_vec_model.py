@@ -134,7 +134,7 @@ class User_score_model():
           return t12                                       
                                              
                                              
-      def build_model(self,data_shape,model_mode,print_model=True):
+      def build_model(self,data_shape,print_model=True):
           input_pos = Input(shape=(data_shape[1],data_shape[2],), name="input_pos")
           input_neg = Input(shape=(data_shape[1],data_shape[2],), name="input_neg")
           #comb=subtract([input_pos,input_neg])
@@ -162,13 +162,13 @@ class User_score_model():
           model.compile(loss='mae', optimizer='adam')
           return model
           
-      def training(self,X_train,model_mode,patience_num,epochs_num,batch_num):
+      def training(self,X_train,patience_num,epochs_num,batch_num):
           X_pos=X_train[1]
           #Y_train = np.ones((X_pos.shape[0],X_pos.shape[1]))+1
           Y_train= np.ones((X_pos.shape[0],X_pos.shape[1]))+1
           print(Y_train.shape)
           np.random.seed(0)
-          model=self.build_model(X_pos.shape,model_mode)
+          model=self.build_model(X_pos.shape)
           checkpoint=ModelCheckpoint('temp_weight.hdf5', monitor='val_loss', verbose=1, save_best_only=True, mode='min')
           early = EarlyStopping(monitor="val_loss", patience=patience_num, verbose=1, mode="auto")
           callbacks_list = [early,checkpoint]    
@@ -182,9 +182,9 @@ class User_score_model():
           return model
           
             
-      def get_the_user_vector(self,X_train,model_mode,patience_num_para,epochs_num_para,batch_num_para):
+      def get_the_user_vector(self,X_train,patience_num_para,epochs_num_para,batch_num_para):
           layer_name = 'user_vec_2d'
-          model=self.training(X_train,model_mode,
+          model=self.training(X_train,
                               patience_num=patience_num_para,
                               epochs_num=epochs_num_para,
                               batch_num=batch_num_para)
