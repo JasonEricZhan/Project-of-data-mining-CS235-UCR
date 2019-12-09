@@ -577,22 +577,22 @@ class pos_neg_vec_generator(Vec_generator):
           
        
 
-      def mapping_quary(self,movie_id,embedding_dim,sampling):
+      def mapping_quary(self,music_id,embedding_dim,sampling):
           #quary the vector, will consider the shell 
-          if movie_id not in self.vec_dict:
-             print("unfound:", movie_id)
+          if music_id not in self.vec_dict:
+             print("unfound:", music_id)
              #exit(0)
                 
           if not sampling:
              try:
-                vec=self.vec_dict[movie_id][:embedding_dim] #force to get the first 'embedding_dim' of vector
+                vec=self.vec_dict[music_id][:embedding_dim] #force to get the first 'embedding_dim' of vector
              except:
                 vec=np.zeros((1,embedding_dim))
                 return vec
 
           else:
              try:
-                vec=self.vec_dict[movie_id][:embedding_dim] #force to get the first 'embedding_dim' of vector
+                vec=self.vec_dict[music_id][:embedding_dim] #force to get the first 'embedding_dim' of vector
              except:
                 return None
              
