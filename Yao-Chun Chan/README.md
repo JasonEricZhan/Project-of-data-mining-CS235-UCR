@@ -6,3 +6,6 @@
 ### 5.retrieve_user_vec.py
 ### 6.retrieve_music_tr.py and retrieve_music_ts.py
 ### 7.transfer_learning.py
+
+Because it is hard to provide the toy data to run the deep NN structure, so I provide the snapshot of the result from kaggle,
+It contained time and the scores.
