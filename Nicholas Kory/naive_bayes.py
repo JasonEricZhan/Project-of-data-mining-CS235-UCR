@@ -2,6 +2,10 @@ import numpy as np
 import pandas as pd
 
 
+# function train generates the naive Bayes model
+# params: features - a 2D array with rows as datapoints and col as features
+#         classes - a col array with the corresponding y value to the features
+# returns: a list object with the prior probability and the conditional probability
 def train(features, classes):
     feature_max = features.max().max()
 
@@ -24,7 +28,11 @@ def train(features, classes):
     return (prior_prob,cond_prob)
 
 
-
+# function predict uses the naive Bayes model to make predictions about test data
+# params: test - a 2D array with rows as datapoints and col as features
+#         model - a list object with the prior probability and the conditional
+#                 probability of the naive Bayes model
+# returns: a col array with the predictions for the test set
 def predict(test,model):
     (prior_prob,cond_prob) = model
 
@@ -53,11 +61,17 @@ def predict(test,model):
     # predictions of test are complete
     return prediction
 
+# uncomment to use toy data set
+# features = np.loadtxt('toy_train.csv', delimiter=',')
+# classes = np.loadtxt('toy_train_classes.csv', delimiter=',')
+# test = np.loadtxt('toy_test.csv', delimiter=',')
+# ids = np.loadtxt('toy_test_ids.csv', delimiter=',')
 
-features = np.loadtxt('C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\sampling_train_preprocessed.csv', delimiter=',')
-classes = np.loadtxt('C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\sampling_train_preprocessed_classes.csv', delimiter=',')
-test = np.loadtxt('C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\sampling_test_2_preprocessed.csv', delimiter=',')
-ids = np.loadtxt('C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\sampling_test_2_preprocessed_ids.csv', delimiter=',')
+# uncomment to use data sample
+features = np.loadtxt('sampling_train_preprocessed.csv', delimiter=',')
+classes = np.loadtxt('sampling_train_preprocessed_classes.csv', delimiter=',')
+test = np.loadtxt('sampling_test_2_preprocessed.csv', delimiter=',')
+ids = np.loadtxt('sampling_test_2_preprocessed_ids.csv', delimiter=',')
 
 model = train(features, classes)
 prediction = predict(test,model)
@@ -65,4 +79,4 @@ submission = np.column_stack((ids,prediction))
 
 print(submission)
 
-pd.DataFrame(submission).to_csv('C:\\Users\\nmkor\\Desktop\\Project-of-data-mining-CS235-UCR\\Nicholas Kory\\nb_submission_2.csv', header=['id','target'], index=False)
+pd.DataFrame(submission).to_csv('nb_submission_2.csv', header=['id','target'], index=False)
