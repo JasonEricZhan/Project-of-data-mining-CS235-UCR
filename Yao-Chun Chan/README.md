@@ -8,4 +8,4 @@
 ### 7.transfer_learning.py
 
 Because it is hard to provide the toy data to run the deep NN structure, so I provide the snapshot of the result from kaggle,
-It contained time and the scores.
+It contained time and the scores. From result_snapshot.png
