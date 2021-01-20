@@ -11,4 +11,4 @@ Because it is hard to provide the toy data to run the deep NN structure, so I pr
 It contained time and the scores. From result_snapshot.png
 
 
-The Sampling Neural Collaborative Filtering model is at 
+The Sampling Neural Collaborative Filtering model is at User_vec_model.py 
