@@ -7,8 +7,7 @@
 ### 6.retrieve_music_tr.py and retrieve_music_ts.py
 ### 7.transfer_learning.py
 
-Because it is hard to provide the toy data to run the deep NN structure, so I provide the snapshot of the result from kaggle,
-It contained time and the scores. From result_snapshot.png
+Because it is hard to provide the toy data to run the deep NN structure, so I provide the snapshot of the result from kaggle.
 
 
 The Sampling Neural Collaborative Filtering model is at User_vec_model.py 
