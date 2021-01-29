@@ -65,6 +65,26 @@ class model_deepAndWide():
             
             return x_numerical,x_category,tmp_input_num,embedding_inputs
             
+        
+        
+        def fm_2d(applied_x):
+            # calcuate the interactions by simplication, provided for Factorized machine 2d (None, feature dimension, latent dimension)
+            # sum of (x1*x2) = sum of (0.5*[(xi)^2 - (xi^2)])
+ 
+            tensor_sum = Lambda(lambda x: K.sum(x, axis = 1), name = 'sum_of_tensors')
+            tensor_square = Lambda(lambda x: K.square(x), name = 'square_of_tensors')
+            sum_of_embed = tensor_sum(applied_x)
+            square_of_embed = tensor_square(applied_x)
+            square_of_sum = Multiply()([sum_of_embed, sum_of_embed])
+            sum_of_square = tensor_sum(square_of_embed)
+ 
+            sub = Subtract()([square_of_sum, sum_of_square])
+            sub = Lambda(lambda x: x*0.5)(sub)
+ 
+            y_fm_2d = Reshape((1,), name = 'fm_2d_output')(tensor_sum(sub))
+ 
+            return y_fm_2d
+ 
                     
         
         def build_model_multi_channel(self,data,song,member,source,user_vec_dim):
